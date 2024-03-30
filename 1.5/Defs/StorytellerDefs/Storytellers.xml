@@ -1,9 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-
-	<StorytellerDef Name="VSE_BaseStorytellerDoublePopulation" Abstract="True">
-		<populationIntentFactorFromPopCurve>
+	<StorytellerDef ParentName="BaseStoryteller">
+		<defName>VSE_PerryPersistent</defName>
+		<label>Perry Persistent</label>
+		<description>Perry Persistent conveys a story the same way he handles his investigations - with determination and attention to details. He will constantly keep you on your toes, as every day can bring you to the end of his investigation.</description>
+		<portraitLarge>Storytellers/PerryPersistent</portraitLarge>
+		<portraitTiny>Storytellers/PerryPersistentTiny</portraitTiny>
+		<listOrder>80</listOrder>
+		<populationIntentFactorFromPopCurve Inherit="False">
 			<points>
 				<li>0,  8.0</li>
 				<li>2,  8.0</li>
@@ -13,160 +18,12 @@
 				<li>40, -1.0</li>
 			</points>
 		</populationIntentFactorFromPopCurve>
-		<populationIntentFactorFromPopAdaptDaysCurve>
+		<populationIntentFactorFromPopAdaptDaysCurve Inherit="False">
 			<points>
 				<li>( 0, 0)</li>
 				<li>(20, 1.00)</li>
 			</points>
 		</populationIntentFactorFromPopAdaptDaysCurve>
-		<pointsFactorFromDaysPassed>
-			<points>
-				<li>(10, 0.70)</li>
-				<li>(40, 1.00)</li>
-			</points>
-		</pointsFactorFromDaysPassed>
-		<adaptDaysMin>-60</adaptDaysMin>
-		<adaptDaysMax>100</adaptDaysMax>
-		<adaptDaysGameStartGraceDays>30</adaptDaysGameStartGraceDays>
-		<!-- only applies to adaptDays past 0 -->
-		<adaptDaysLossFromColonistLostByPostPopulation>
-			<points>
-				<li>( 0, 30)</li>
-				<!-- 30 days at normal pops; lower at really high pop -->
-				<li>(11, 30)</li>
-				<li>(20, 20)</li>
-			</points>
-		</adaptDaysLossFromColonistLostByPostPopulation>
-		<adaptDaysLossFromColonistViolentlyDownedByPopulation>
-			<points>
-				<li>(1,  8)</li>
-				<li>(2,  6)</li>
-				<li>(3,  6)</li>
-				<li>(11, 5)</li>
-				<li>(20, 3.5)</li>
-			</points>
-		</adaptDaysLossFromColonistViolentlyDownedByPopulation>
-		<adaptDaysGrowthRateCurve>
-			<points>
-				<li>(-30.01, 6)</li>
-				<!-- under: 8.00 -->
-				<li>(-30,    3)</li>
-				<!--   -30: 3.00 -->
-				<li>(-0.01,  3)</li>
-				<li>(0,      1)</li>
-				<!--     0: 1.00 -->
-				<li>(59.99,  1)</li>
-				<li>(60,     0.5)</li>
-				<!--    60: 0.50 -->
-				<li>(119.99, 0.5)</li>
-				<li>(120,    0.25)</li>
-				<!--  120: 0.25 -->
-			</points>
-		</adaptDaysGrowthRateCurve>
-		<pointsFactorFromAdaptDays>
-			<points>
-				<li>(-30, 0.40)</li>
-				<!-- recover in 10 days -->
-				<li>(  0, 0.80)</li>
-				<!-- start at     0.80  -->
-				<li>( 30, 1.00)</li>
-				<!-- 0.5 years to 1.00  -->
-				<li>( 60, 1.20)</li>
-				<!-- 0.5 years to 1.20  -->
-				<li>(120, 1.60)</li>
-				<!-- 2   years to 1.60  -->
-				<li>(180, 2.00)</li>
-				<!-- 4   years to 2.00  -->
-			</points>
-		</pointsFactorFromAdaptDays>
-		<comps>
-			<!-- Endgame - ship escape quest -->
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>20</fireAfterDaysPassed>
-				<incident>GiveQuest_EndGame_ShipEscape</incident>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-			</li>
-			<!-- Endgame - royal ascent quest (Royalty only) -->
-			<li Class="StorytellerCompProperties_RefiringUniqueQuest">
-				<minDaysPassed>35</minDaysPassed>
-				<refireEveryDays>22</refireEveryDays>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_EndGame_RoyalAscent</incident>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<!-- Infestations from deep drilling -->
-			<li Class="StorytellerCompProperties_DeepDrillInfestation">
-				<baseMtbDaysPerDrill>20</baseMtbDaysPerDrill>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-					<li>Map_TempIncident</li>
-					<li>Map_Misc</li>
-					<li>Map_RaidBeacon</li>
-				</allowedTargetTags>
-			</li>
-			<!-- Royalty intro quests -->
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>8</fireAfterDaysPassed>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Wimp</incident>
-				<skipIfColonistHasMinTitle MayRequire="Ludeon.RimWorld.Royalty">Yeoman</skipIfColonistHasMinTitle>
-				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
-				<minColonistCount>3</minColonistCount>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>26</fireAfterDaysPassed>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Deserter</incident>
-				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<!-- Royalty tribute collector -->
-			<li Class="StorytellerCompProperties_FactionInteraction">
-				<incident MayRequire="Ludeon.RimWorld.Royalty">CaravanArrivalTributeCollector</incident>
-				<minDaysPassed>20</minDaysPassed>
-				<baseIncidentsPerYear>2</baseIncidentsPerYear>
-				<minSpacingDays>30</minSpacingDays>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<incident MayRequire="Ludeon.RimWorld.Royalty">AnimaTreeSpawn</incident>
-				<onDays>15</onDays>
-				<offDays>15</offDays>
-				<numIncidentsRange>1</numIncidentsRange>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-				</allowedTargetTags>
-			</li>
-		</comps>
-	</StorytellerDef>
-
-	<StorytellerDef ParentName="VSE_BaseStorytellerDoublePopulation">
-		<defName>VSE_PerryPersistent</defName>
-		<label>Perry Persistent</label>
-		<description>Perry Persistent conveys a story the same way he handles his investigations - with determination and attention to details. He will constantly keep you on your toes, as every day can bring you to the end of his investigation.</description>
-		<portraitLarge>Storytellers/PerryPersistent</portraitLarge>
-		<portraitTiny>Storytellers/PerryPersistentTiny</portraitTiny>
-		<listOrder>80</listOrder>
 		<comps>
 			<!-- Intro -->
 			<li Class="StorytellerCompProperties_ClassicIntro"/>

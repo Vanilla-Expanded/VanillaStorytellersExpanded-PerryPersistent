@@ -52,6 +52,8 @@
       <li>Apparel_BowlerHat</li>
     </apparelRequired>
     <apparelColor>(148,137,118)</apparelColor>
+    <initialWillRange>0~0</initialWillRange>
+    <initialResistanceRange>0~2</initialResistanceRange>
   </PawnKindDef>
 
 </Defs>
